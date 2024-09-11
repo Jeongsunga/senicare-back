@@ -22,13 +22,15 @@ public class AuthServiceImplement implements AuthService{
         String userId = dto.getUserId();
 
         try {
-
             boolean isExistedId = nurseRepository.existsByUserId(userId);
+            if(isExistedId) return ResponseDto.duplicatedUserId();
             
         } catch (Exception exception) {
             exception.printStackTrace();
+            return ResponseDto.databaseError();
         }
-
+        
+        return ResponseDto.success();
     }
     
 }
