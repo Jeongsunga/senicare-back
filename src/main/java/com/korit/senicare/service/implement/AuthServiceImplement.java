@@ -8,6 +8,7 @@ import com.korit.senicare.dto.request.auth.IdCheckRequestDto;
 import com.korit.senicare.dto.request.auth.TelAuthRequestDto;
 import com.korit.senicare.dto.response.ResponseDto;
 import com.korit.senicare.entity.TelAuthNumberEntity;
+import com.korit.senicare.provider.SmsProvider;
 import com.korit.senicare.repository.NurseRepository;
 import com.korit.senicare.repository.TelAuthNumberRepository;
 import com.korit.senicare.service.AuthService;
@@ -17,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImplement implements AuthService{
+
+    private final SmsProvider smsProvider;
 
     private final NurseRepository nurseRepository;
     private final TelAuthNumberRepository telAuthNumberRepository;
@@ -44,7 +47,7 @@ public class AuthServiceImplement implements AuthService{
         try {
             
             boolean isExistedTelNumber = nurseRepository.existsByTelNumber(telNumber);
-            (isExistedTelNumber) return ResponseDto.duplicatedTelNumber();
+            if(isExistedTelNumber) return ResponseDto.duplicatedTelNumber();
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -52,6 +55,8 @@ public class AuthServiceImplement implements AuthService{
         }
 
         String authNumber = AuthNumberCreator.number4();
+
+        smsProvider.sendMessage(telNumber, authNumber);
 
         try {
             
