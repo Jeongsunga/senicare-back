@@ -11,6 +11,9 @@ import com.korit.senicare.dto.response.ResponseDto;
 import com.korit.senicare.dto.response.ResponseMessage;
 import com.korit.senicare.entity.ToolEntity;
 
+import lombok.Getter;
+
+@Getter
 public class GetToolListResponseDto extends ResponseDto{
 
     private List<Tool> tools;
