@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.korit.senicare.entity.CustomerEntity;
-import com.korit.senicare.repository.resultSet.GetCustomerResultSet;
+import com.korit.senicare.repository.resultSet.GetCustomersResultSet;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<CustomerEntity, Integer>{
@@ -26,6 +26,6 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Intege
         "ORDER BY C.custom_number DESC ",
     nativeQuery = true
     )
-    List<GetCustomerResultSet> getCustomers();
+    List<GetCustomersResultSet> getCustomers();
 
 }
